@@ -1,0 +1,35 @@
+.box {
+    margin: 0 2px;
+    max-width: 45px;
+    max-height: 60px;
+    background-color: red;
+    display: inline-block;
+}
+
+img {
+    max-width: 45px;
+    max-height: 60px;
+    position: relative;
+}
+
+.grid {
+    margin: auto;
+}
+
+borderImg:before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    right: 1px;
+    border: 1px solid black;
+}
+
+.active {
+    background-color: blue;
+}
+
+body {
+    background-color: cornflowerblue;
+}
