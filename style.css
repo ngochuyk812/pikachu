@@ -1,9 +1,128 @@
+@font-face {
+    font-family: 'PIKACHU';
+    src: url("./font/pikachu.ttf") format("truetype");
+}
+
+body {
+    font-family: PIKACHU;
+}
+
+h1 {
+    font-family: PIKACHU;
+
+}
+
 .box {
     margin: 0 2px;
     max-width: 45px;
     max-height: 60px;
     background-color: red;
     display: inline-block;
+}
+
+#progressBar {
+    width: 90%;
+    margin: 10px auto;
+    height: 15px;
+    background-color: #B8C3C3;
+    border-radius: 15px;
+
+}
+
+#progressBar div {
+    border-radius: 15px;
+
+    transition: all 1s ease;
+    height: 100%;
+    text-align: center;
+    width: 0;
+    background-color: #4B5863;
+    box-sizing: border-box;
+    background-color: yellow;
+}
+
+.main_game {
+    position: relative;
+    background-image: url('/img/back.webp');
+    background-position: center;
+    background-size: cover;
+    border: 1px solid black;
+    width: 800px;
+    margin: auto;
+    box-shadow: 5px 5px 5px rgb(131, 131, 131);
+}
+
+.filter {
+
+}
+
+.backgroud_filter::before {
+    content: "";
+    background-image: url("img/back.webp");
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.backgroud_filter {
+    height: 100%;
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu_game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+
+}
+
+.button_start {
+    width: 150px;
+    padding: 10px 45px;
+    cursor: pointer;
+    border-radius: 10px;
+
+}
+
+.button_start * {
+    padding: 5px 0;
+}
+
+.pd {
+    width: 100px;
+    padding: 0px 20px;
+    background-color: white;
+}
+
+.time-line {
+    background-color: red;
+    min-width: 100px;
+    height: 10px;
 }
 
 img {
@@ -26,10 +145,41 @@ borderImg:before {
     border: 1px solid black;
 }
 
+.notify {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("img/back.webp");
+    background-position: center;
+    background-size: cover;
+    animation-name: animation;
+    animation-duration: 1s;
+}
+
+@keyframes animation {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+
 .active {
     background-color: blue;
 }
 
 body {
-    background-color: cornflowerblue;
+    background-color: lightgray;
+}
+
+.pd {
+    padding: 8px;
+    margin-bottom: 15px;
 }
