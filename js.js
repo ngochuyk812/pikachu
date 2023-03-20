@@ -8,7 +8,7 @@ var HEIGHT = ROW * SIZE
 var LEVEL = 0
 var onSound = true
 var intervalCountDown
-const timeInit = 4 * 60
+const timeInit = 6 * 60
 var sec = timeInit
 var totalSec = sec
 var bord = []
@@ -116,14 +116,29 @@ const fiterLevel = (rs) => {
                 console.log();
                 let arr = bord[rs[i].x].slice(1, -1)
 
-                bord[rs[i].x] = [0, ...moveZeroes(arr), 0]
+                bord[rs[i].x] = [0, ...moveZerosToTop(arr), 0]
                 console.log(bord[rs[i].x]);
             }
             drawBord()
 
             break;
         case 5:
+            for (let i = 0; i < rs.length; i++) {
+                let arr = bord[rs[i].x].slice(1, -1)
+                let arrTop = []
+                let arrEnd = []
+                for (let i = 0; i <= Math.floor(arr.length / 2) - 1; i++) {
+                    arrTop.push(arr[i]);
+                }
+                for (let i = Math.floor(arr.length / 2); i < arr.length; i++) {
+                    arrEnd.push(arr[i]);
+                }
+                arrTop = moveZerosToTop(arrTop)
+                arrEnd = moveZerosToEnd(arrEnd)
 
+                bord[rs[i].x] = [0, ...arrTop, ...arrEnd, 0]
+            }
+            drawBord()
 
             break;
         default:
@@ -133,7 +148,26 @@ const fiterLevel = (rs) => {
 
 }
 
-function moveZeroes(arr) {
+function moveZerosToEnd(array) {
+    let newArr = [];
+    let count = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] !== 0) {
+            newArr.push(array[i]);
+        } else {
+            count++;
+        }
+    }
+
+    for (let i = 0; i < count; i++) {
+        newArr.push(0);
+    }
+
+    return newArr;
+}
+
+function moveZerosToTop(arr) {
 
 
     let zeroes = [];
@@ -230,6 +264,14 @@ class Cell {
 
 //Khởi tạo các cell
 const startGame = () => {
+    document.querySelector("#score").textContent = 0
+    quantityRandom = 10
+    document.querySelector(".quantityRandom").textContent = " " + quantityRandom
+    document.querySelector("#quantityRand").setAttribute("value", quantityRandom)
+    if (LEVEL === 0) {
+        COL = 8
+        ROW = 8
+    }
     if (LEVEL > 1 && LEVEL <= 3) {
         COL = 10
         ROW = 10
@@ -358,8 +400,8 @@ const BFS = (p1, p2) => {
     queue.push(p1)
     while (queue.length !== 0) {
         let item = queue.shift()
-        let moveX = [0, 0, 1, -1, 1, -1, 0, 0]
-        let moveY = [1, -1, 0, 0, 0, 0, 1, -1]
+        let moveX = [0, 0, 1, -1,]
+        let moveY = [1, -1, 0, 0,]
         for (let i = 0; i < moveY.length; i++) {
             let pointTmp = new Cell(item.x + moveX[i], item.y + moveY[i])
             if (checkInside(pointTmp)) {
@@ -402,9 +444,13 @@ const findRsBFS = (bfs, start, end) => {
         drawPath(rs, cheap)
         if (bord[start.x][start.y] === 31) {
 
-            if (sec = sec + 20 > timeInit) {
+            if (sec + 20 >= timeInit) {
                 sec = timeInit
+            } else {
+                sec = sec + 20
             }
+        } else {
+            document.querySelector("#score").textContent = Number(document.querySelector("#score").textContent) + 10
         }
     }
 
@@ -470,8 +516,18 @@ const deleteItem = (arr) => {
         playAudio("audio/win.mp3")
         clearInterval(intervalCountDown)
         progress(0, timeInit, document.querySelector("#progressBar"))
-        document.querySelector(".next_level").textContent = "LEVEL " + (LEVEL + 2)
-        document.querySelector("#youwin").style.display = "flex"
+        if (LEVEL === 5) {
+            document.querySelector(".next_level").style.display = 'none'
+            document.querySelector("#youwin h1").textContent = "YOU WIN ALL LEVEL"
+            document.querySelector("#youwin").style.display = "flex"
+
+        } else {
+            document.querySelector(".next_level").textContent = "LEVEL " + (LEVEL + 2)
+            document.querySelector("#youwin").style.display = "flex"
+            document.querySelector(".next_level").style.display = "block"
+            document.querySelector("#youwin h1").textContent = "YOU WIN"
+        }
+
 
     }
     console.table(bord)
@@ -582,10 +638,13 @@ document.querySelector(".continue").addEventListener("click", () => {
 })
 
 document.querySelector(".play__again").addEventListener('click', function (e) {
-    console.log(timeInit)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    LEVEL = Number(document.querySelector("#level").value)
     sec = timeInit - (LEVEL * 30)
     totalSec = sec
     intervalCountDown = countDown()
+    document.querySelector(".menu_game").style.display = "none"
     startGame()
     drawBord()
     document.querySelector("#game__over").style.display = "none"
@@ -609,6 +668,7 @@ document.querySelector("#start").addEventListener('click', () => {
     intervalCountDown = countDown()
     document.querySelector(".menu_game").style.display = "none"
     LEVEL = Number(document.querySelector("#level").value)
+    console.log(LEVEL);
     startGame()
     drawBord()
 

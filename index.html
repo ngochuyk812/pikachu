@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="main_game">
+<div class="main_game" style="    background-image: url('img/back.webp');
+">
     <div id="pasue" class="notify" style="display: none">
         <button class="pd continue" style="font-family: PIKACHU">Continue</button>
 
@@ -28,6 +29,7 @@
         <button class="pd openMenu" style="font-family: PIKACHU">Menu</button>
 
     </div>
+
     <div class="menu_game" style="z-index: 20">
         <div class="backgroud_filter">
 
@@ -49,13 +51,20 @@
     </div>
 
 
-    <div>
+    <div >
+        <div style="padding: 0 320px">
+            <div style="background-image: url('img/diem.webp');background-size: cover;background-position: 0 ; padding: 5px 0">
+                <h4 style="margin: 0; margin-top: 10px; text-align: center; color: white">score</h4>
+                <br>
+                <h4 id="score" style="margin: 0;  text-align: center; color: white">0</h4>
+            </div>
+        </div>
         <div style=" padding: 0px 10px ; display: flex; flex-direction: row; justify-content: center; padding-top:10px ">
             <div id="progressBar">
                 <div class="bar"></div>
             </div>
         </div>
-        <div style="display: flex; align-items: center; justify-content: center">
+        <div style="display: flex; align-items: center; justify-content: center; flex: 2;">
             <canvas id="canvas"></canvas>
         </div>
         <div style="display: flex; justify-content: center; gap: 30px">
@@ -65,10 +74,9 @@
                     class="fa-solid fa-rotate-right"></i><span class="quantityRandom"> 10</span></button>
             <button class="pd pasue" style="font-family: PIKACHU"><i class="fa-regular fa-circle-pause"></i></button>
             <button class="pd openMenu" style="font-family: PIKACHU"><i class="fa-solid fa-right-from-bracket"></i>
-                <button class="pd sound" style="font-family: PIKACHU"><i class="fa-solid fa-volume-xmark"></i>
+                <button class="pd sound" style="font-family: PIKACHU"><i class="fa-solid fa-volume-xmark" style="background-color: rgba(255,255,255,0)"></i>
 
-            </button>
-
+        </div>
         </div>
     </div>
 </div>
